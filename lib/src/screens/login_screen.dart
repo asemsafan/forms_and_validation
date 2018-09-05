@@ -11,6 +11,9 @@ class LoginScreenState extends State<LoginScreen> {
 
   //Reference key help us to reference one specific widget
   final formKey = GlobalKey<FormState>();
+  //Make variables to hold and save both email and password
+  String email = '';
+  String password = '';
 
   @override
   Widget build(BuildContext context) {
@@ -49,6 +52,10 @@ class LoginScreenState extends State<LoginScreen> {
         // If there is no error it will automatically return null
         //return null;
       },
+      //Save the value came from the Input
+      onSaved: (String value){
+        email = value;
+      },
     );
   }
 
@@ -64,6 +71,9 @@ class LoginScreenState extends State<LoginScreen> {
           return 'Password Should be at least 4 characters';
         }
       },
+      onSaved: (String value){
+        password = value;
+      },
     );
   }
 
@@ -72,7 +82,11 @@ class LoginScreenState extends State<LoginScreen> {
       color: Colors.greenAccent,
       onPressed: () {
 //        formKey.currentState.reset();
-      print(formKey.currentState.validate());
+//      print(formKey.currentState.validate());
+      if(formKey.currentState.validate()){
+        formKey.currentState.save();
+        print('Here WE Have $email and $password');
+      }
       },
       child: new Text('Submit!'),
     );
